@@ -12,9 +12,9 @@
 #define FPS 5.0
 
 ALLEGRO_DISPLAY* window = NULL;
-ALLEGRO_EVENT_QUEUE* ListaEv = NULL;
+ALLEGRO_EVENT_QUEUE *ListaEv = NULL;
 ALLEGRO_TIMER *timer = NULL;
-ALLEGRO_FONT* fonte = NULL;
+ALLEGRO_FONT *fonte = NULL;
 Menu menu[5];
 Monstrinho monst;
 
@@ -64,7 +64,7 @@ int init(){
     }
     for(i = 0; i<5; i++){
         if(i < 3)
-            menu[i] = initMenu("images/Menu.png",213*i,5,256,256,256*i,0,213,150);
+            menu[i] = initMenu("images/Menu.png", 213*i, 5, 256, 256, 256*i, 0, 213, 150);
         else
             menu[i] = initMenu("images/Menu.png",213*(i-2.5),325,256,256,256*i,0,213,150);
         if(!menu[i].sprite || !menu[i].sprsheet.Spritesheet){
@@ -72,7 +72,7 @@ int init(){
             return 0;
         }
     }
-    monst = iniMons("Fulano",8,4,20,"images/monst_sprsh.png");
+    monst = iniMons("Fulano", 8, 4, 20,"images/monst_sprsh.png");
     if(!monst.spr.Spritesheet){
         mensErro("Erro ao abrir alguma imagem do Tamabro");
         return 0;

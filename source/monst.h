@@ -2,6 +2,7 @@
 #define MONST_H_INCLUDED
 #include "sprite.h"
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_image.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -12,7 +13,7 @@
 typedef struct{
     char *Nome;
     int Genero;
-    unsigned int contStatus;
+    long unsigned int contStatus;
     int Fome, Saude, Idade;
     int porcFome, porcSaude, porcIdade;
     int possibCagar;
@@ -46,10 +47,10 @@ Monstrinho iniMons(char nome[], int porcFome, int porcIdade, int porcSaude, char
 }
 
 void desenharMons(Monstrinho *monst){
-    ALLEGRO_BITMAP* temp = pegarSprite(monst->spr,monst->spr.posFolX,monst->spr.posFolY,monst->spr.larguraSpr,monst->spr.alturaSpr);
-    al_draw_scaled_bitmap(temp,0,0,al_get_bitmap_width(temp),al_get_bitmap_height(temp),250,165,150,150,0);
+    ALLEGRO_BITMAP *temp = pegarSprite(monst->spr, monst->spr.posFolX, monst->spr.posFolY, monst->spr.larguraSpr,monst->spr.alturaSpr);
+    al_draw_scaled_bitmap(temp, 0, 0, al_get_bitmap_width(temp), al_get_bitmap_height(temp), 250, 165, 150, 150, 0);
     if(monst->Poop)
-        al_draw_scaled_bitmap(monst->Poop, 0, 0, al_get_bitmap_width(monst->Poop), al_get_bitmap_height(monst->Poop), 165, 240, 100, 100,0);
+        al_draw_scaled_bitmap(monst->Poop, 0, 0, al_get_bitmap_width(monst->Poop), al_get_bitmap_height(monst->Poop), 165, 240, 100, 100, 0);
     mudFrameSpr(&monst->spr);
 }
 
@@ -61,7 +62,7 @@ void alimentarMons(Monstrinho *monst){
 }
 
 void tratarMons(Monstrinho *monst){
-    monst->Saude *= monst->porcSaude;
+    monst->Saude += monst->porcSaude;
     if(monst->Saude>100)
         monst->Saude = 100;
 }
@@ -79,7 +80,8 @@ void envelhecerMons(Monstrinho *monst){
 }
 
 void atualMons(Monstrinho *monst){
-    monst->contStatus++;
+    if(monst->spr.posFolY!=768)
+        monst->contStatus++;
     if(monst->contStatus % monst->porcFome == 0 && monst->spr.posFolY!=0 && monst->spr.posFolY!=768)
         monst->Fome++;
     if(monst->contStatus % monst->porcIdade == 0  && monst->spr.posFolY!=768){
@@ -93,6 +95,8 @@ void atualMons(Monstrinho *monst){
         monst->Poop = al_load_bitmap("images/poop.png");
         al_convert_mask_to_alpha(monst->Poop, al_map_rgb(0, 255, 0));
     }
+    if(monst->Saude == -50 || monst->Fome == 150)
+        monst->spr.posFolY += (al_get_bitmap_height(monst->spr.Spritesheet) - monst->spr.alturaSpr) - monst->spr.posFolY;
 }
 
 void finalizarMonst(Monstrinho *monst){

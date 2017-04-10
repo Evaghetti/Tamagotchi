@@ -1,5 +1,6 @@
 #ifndef SPRITE_H_INCLUDED
 #define SPRITE_H_INCLUDED
+
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
 
@@ -21,14 +22,14 @@ Sprite iniSpr(int larguraSpr, int alturaSpr, const char cam[], const int posFolX
 }
 
 ALLEGRO_BITMAP* pegarSprite(Sprite spr, int posXO, int posYO, int larguraSpr, int alturaSpr){
-    ALLEGRO_BITMAP* temp = NULL;
+    ALLEGRO_BITMAP *temp = NULL;
     temp = al_create_sub_bitmap(spr.Spritesheet,posXO,posYO,larguraSpr,alturaSpr);
     return temp;
 }
 
 void mudFrameSpr(Sprite *spr){
-    spr->posFolX+=spr->larguraSpr;
-    if(spr->posFolX==al_get_bitmap_width(spr->Spritesheet))
+    spr->posFolX += spr->larguraSpr;
+    if(spr->posFolX == al_get_bitmap_width(spr->Spritesheet))
         spr->posFolX = 0;
 }
 

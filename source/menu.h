@@ -7,7 +7,7 @@
 typedef struct{
     int x, y;
     int larguraBot, alturaBot;
-    ALLEGRO_BITMAP* sprite;
+    ALLEGRO_BITMAP *sprite;
     Sprite sprsheet;
 }Menu;
 
@@ -15,26 +15,26 @@ Menu initMenu(char camIm[], int x, int y, int larSpr, int altSpr, int posXO, int
     Menu temp;
     temp.x = x;
     temp.y = y;
-    temp.sprsheet = iniSpr(larSpr, altSpr, camIm ,0 , 0);
-    temp.sprite = pegarSprite(temp.sprsheet, posXO, posYO, temp.sprsheet.larguraSpr, temp.alturaBot);
+    temp.sprsheet = iniSpr(larSpr, altSpr, camIm , 0, 0);
+    temp.sprite = pegarSprite(temp.sprsheet, posXO, posYO, temp.sprsheet.larguraSpr, temp.sprsheet.alturaSpr);
     temp.larguraBot = larBot;
     temp.alturaBot = altBot;
     return temp;
 }
 
-void desenharMenu(Menu menu[], ALLEGRO_DISPLAY* janela){
+void desenharMenu(Menu menu[], ALLEGRO_DISPLAY *janela){
     int i;
     ALLEGRO_BITMAP *Quadrado = al_create_bitmap(menu[0].larguraBot,menu[0].alturaBot);//cria um bitmap vazio com o tamanho do botão.
     for(i = 0; i<5; i++){
         al_set_target_bitmap(Quadrado);
-        al_clear_to_color(al_map_rgb(0,0,0));
+        al_clear_to_color(al_map_rgb(0 ,0 ,0));
         al_set_target_backbuffer(janela);
         al_draw_bitmap(Quadrado,menu[i].x,menu[i].y,0);
     }
     Quadrado = al_create_bitmap(menu[0].larguraBot-(menu[0].larguraBot*0.040),menu[0].alturaBot-(menu[0].alturaBot*0.040));
     for(i = 0; i<5; i++){
         al_set_target_bitmap(Quadrado);
-        al_clear_to_color(al_map_rgb(255,255,255));
+        al_clear_to_color(al_map_rgb(255, 255, 255));
         al_set_target_backbuffer(janela);
         al_draw_bitmap(Quadrado,menu[i].x+(menu[0].larguraBot*0.025),menu[i].y+(menu[0].alturaBot*0.025),0);
     }
@@ -47,7 +47,7 @@ void status(int *sair, ALLEGRO_EVENT_QUEUE* ListaEv, ALLEGRO_DISPLAY* janela, AL
     int menu = 1;
     al_flush_event_queue(ListaEv);
     ALLEGRO_EVENT evento;
-    ALLEGRO_BITMAP* Sair = al_create_bitmap(100,100);
+    ALLEGRO_BITMAP* Sair = al_create_bitmap(100, 100);
     al_set_target_bitmap(Sair);
     al_clear_to_color(al_map_rgb(255, 0, 0));
     al_set_target_backbuffer(janela);
@@ -62,10 +62,10 @@ void status(int *sair, ALLEGRO_EVENT_QUEUE* ListaEv, ALLEGRO_DISPLAY* janela, AL
                     menu = 0;
             }
         }
-        al_clear_to_color(al_map_rgb(235,235,235));
-        al_draw_textf(fonte, al_map_rgb( 0, 0, 0), 250, 160, 0, "Fome: %d %",monst.Fome);
-        al_draw_textf(fonte, al_map_rgb( 0, 0, 0), 250, 220, 0, "Saude: %d %",monst.Saude);
-        al_draw_textf(fonte, al_map_rgb( 0, 0, 0), 250, 280, 0, "Idade: %d %",monst.Idade);
+        al_clear_to_color(al_map_rgb(235, 235, 235));
+        al_draw_textf(fonte, al_map_rgb( 0, 0, 0), 250, 160, 0, "Fome: %d %", monst.Fome);
+        al_draw_textf(fonte, al_map_rgb( 0, 0, 0), 250, 220, 0, "Saude: %d %", monst.Saude);
+        al_draw_textf(fonte, al_map_rgb( 0, 0, 0), 250, 280, 0, "Idade: %d %", monst.Idade);
         al_draw_bitmap(Sair, 0, 380, 0);
         al_flip_display();
     }
@@ -109,7 +109,6 @@ void infomacoes(int *sair, ALLEGRO_EVENT_QUEUE* ListaEv, ALLEGRO_DISPLAY* janela
 }
 
 void finalizarMenu(Menu *menu){
-    int i;
     if(menu->sprsheet.Spritesheet)
         al_destroy_bitmap(menu->sprsheet.Spritesheet);
     if(menu->sprite)
