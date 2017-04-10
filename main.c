@@ -1,5 +1,4 @@
 #include "source/prep.h"
-#include "source/monst.h"
 
 int main(){
     if(init() == 0){
@@ -9,7 +8,7 @@ int main(){
     int i, op = 0, desenha = 0, sair = 0;
     while(sair == 0){
         ALLEGRO_EVENT evento;
-        al_wait_for_event(ListaEv,&evento);
+        al_wait_for_event(ListaEv, &evento);
         if(evento.type == ALLEGRO_EVENT_TIMER){
             atualMons(&monst);
             desenha = 1;
@@ -18,8 +17,8 @@ int main(){
             sair = 1;
         else if(evento.type == ALLEGRO_EVENT_MOUSE_AXES){
             for(i = 0; i<5;i++){
-                if(evento.mouse.x>=menu[i].x && evento.mouse.x<=menu[i].larguraBot+menu[i].x){
-                    if(evento.mouse.y>=menu[i].y && evento.mouse.y<=menu[i].alturaBot+menu[i].y){
+                if(evento.mouse.x >= menu[i].x && evento.mouse.x <= menu[i].larguraBot + menu[i].x){
+                    if(evento.mouse.y >= menu[i].y && evento.mouse.y <= menu[i].alturaBot + menu[i].y){
                         op = i;
                         break;
                     }
