@@ -13,7 +13,7 @@
 typedef struct{
     char *Nome;
     int Genero;
-    long unsigned int contStatus;
+    long long unsigned int contStatus;
     int Fome, Saude, Idade;
     int porcFome, porcSaude, porcIdade;
     int possibCagar;
